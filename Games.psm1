@@ -1,16 +1,16 @@
 ﻿function Play-TicTacToe {
-    <#
-    .SYNOPSIS
-    A simple Tic-Tac-Toe game.
+<#
+.SYNOPSIS
+A simple Tic-Tac-Toe game.
 
-    .DESCRIPTION
-    Created 2015/09/20 to practice PowerShell. Basic functions, Do/While,
-    script-scope variables, and manipulating context-sensitive variables.
+.DESCRIPTION
+Created 2015/09/20 to practice PowerShell. Basic functions, Do/While,
+script-scope variables, and manipulating context-sensitive variables.
 
-    .EXAMPLE
-    Play-TicTacToe
-    Begins a new game.
-    #>
+.EXAMPLE
+Play-TicTacToe
+Begins a new game.
+#>
     # Create a repeatable function to update/draw the board
     function Update-Board {
         # Skip this if someone has already won
