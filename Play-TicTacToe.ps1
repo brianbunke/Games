@@ -42,21 +42,21 @@ $7 | $8 | $9
         # If somebody has already won, we don't need to take more turns
         If ($Winner -eq $true) {}
         # Player 1, aka Player O
-        ElseIf ($Turn -eq 1) {
+        ElseIf ($ActivePlayer -eq 1) {
             [int]$OTurn = Read-Host 'Player O, choose a position from 1-9'
             # Verify that the player selected an empty square
             If ((Get-Variable -Name $OTurn).Value -eq ' ') {
                  # Set a context-sensitive variable with Player 1's letter O
                  Set-Variable -Name $OTurn -Value 'O' -Scope Script
                  # Change the turn
-                 $script:Turn = 2
+                 $script:ActivePlayer = 2
             }
             Else {
                 Write-Output 'You lose your turn for not matching an empty square.'
                 # Undo this as counting against the nine total turns
-                $script:Z--
+                $script:Turn--
                 # Change the turn
-                $script:Turn = 2
+                $script:ActivePlayer = 2
             }
         }
         # Player 2, aka Player X
@@ -67,14 +67,14 @@ $7 | $8 | $9
                  # Set a context-sensitive variable with Player 2's letter X
                  Set-Variable -Name $XTurn -Value 'X' -Scope Script
                  # Change the turn
-                 $script:Turn = 1
+                 $script:ActivePlayer = 1
             }
             Else {
                 Write-Output 'You lose your turn for not matching an empty square.'
                 # Undo this as counting against the nine total turns
-                $script:Z--
+                $script:Turn--
                 # Change the turn
-                $script:Turn = 1
+                $script:ActivePlayer = 1
             }
         }
     }
@@ -84,6 +84,7 @@ $7 | $8 | $9
         # If somebody has already won, we don't need to redo this check
         If ($Winner -ne $true) {
         # Group wins together in a way that you don't need 8 if/elseifs
+        # Use the value of the common winning square to display the winner
             # Group orthogonal $1 wins
             If ( (($1 -eq $2 -and $2 -eq $3) -or ($1 -eq $4 -and $4 -eq $7)) -and ($1 -ne ' ') ) {
                 Write-Output "### Player $1 is the winner! ###"
@@ -108,18 +109,18 @@ $7 | $8 | $9
     # Set $1 - $9 to ' ' to space the grid properly
     1..9 | % {Set-Variable -Name "$_" -Value ' ' -Scope Script}
     # Number 0 vs. letter O are super confusing, so let's stick to 1 vs. 2
-    $script:Turn = 1..2 | Get-Random
+    $script:ActivePlayer = 1..2 | Get-Random
     # Draw the board before the first turn
     Update-Board
 
     # Increment through the game's turns until there is a winner
-    $script:Z = 1
+    $script:Turn = 1
     DO {
         Take-Turn
         Update-Board
         Check-Winner
-        $script:Z++
-    } WHILE ( $Z -le 9 )
+        $script:Turn++
+    } WHILE ( $Turn -le 9 )
 
     If ($Winner -ne $true) {
         Write-Output '### GAME ENDS IN A DRAW ###'
