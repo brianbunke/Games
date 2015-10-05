@@ -8,9 +8,15 @@ A simple Tic-Tac-Toe game.
 Created 2015/09/20 to practice PowerShell. Basic functions, Do/While,
 script-scope variables, and manipulating context-sensitive variables.
 
+.NOTES
+Brian Bunke
+https://twitter.com/brianbunke
+https://github.com/brianbunke
+http://brianbunke.com
+
 .EXAMPLE
-Play-TicTacToe
-Begins a new game.
+. .\Play-TicTacToe.ps1 ; Play-TicTacToe
+Dot-source the function, begin a new game.
 #>
 
     # Create a repeatable function to update/draw the board
@@ -30,6 +36,7 @@ $7 | $8 | $9
 "@ ) | Write-Output
         }
     }
+
     # Create a repeatable function to prompt for input and apply it to the board
     function Take-Turn {
         # If somebody has already won, we don't need to take more turns
@@ -71,6 +78,7 @@ $7 | $8 | $9
             }
         }
     }
+
     # Create a repeatable function to evaluate the board
     function Check-Winner {
         # If somebody has already won, we don't need to redo this check
