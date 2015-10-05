@@ -16,6 +16,9 @@ Play-TicTacToe
 
 ### Author
 Brian Bunke
+
 https://twitter.com/brianbunke
+
 https://github.com/brianbunke
+
 http://brianbunke.com
